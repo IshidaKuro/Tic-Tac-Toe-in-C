@@ -7,7 +7,11 @@
 
 
 //global variables
-
+int squares[3][3] = { {0,0,0}, {0,0,0},{0,0,0} }; //create an array of nullable booleans that will be used to store noughts and crosses: 0=O, 1=X, NULL = ?
+bool player = false; //create the player boolean
+char symbol;//symbol to use for the first player
+bool win = false; //win condition for the game, used to terminate the game loop
+int turns = 0;
 
 void printGrid(int squares[3][3])
 {
@@ -138,7 +142,7 @@ void playerTurn(char symbol)
 			else
 			{
 				squares[xAxis][yAxis] = 2;
-				symbol = "x"; //change who's turn it is
+				&symbol == "x"; //change who's turn it is
 				occupied = false; //set the occupied boolean to false to break the loop
 			}
 
@@ -160,52 +164,42 @@ void checkForWin(int squares[3][3])
 		win = true;
 	}
 }
-
 int main()
 
 {
-
-	int squares[3][3] = { {0,0,0}, {0,0,0},{0,0,0} }; //create an array of nullable booleans that will be used to store noughts and crosses: 0=O, 1=X, NULL = ?
-	bool player == false; //create the player boolean
-	char symbol = 'r';//symbol to use for the first player
-	bool win == false; //win condition for the game, used to terminate the game loop
-	int turns = 0;
-
-
 	printf("Welcome to Tic Tac Toe. \n");
 
 
 	// char board[40]; //create the string that will be the game board
 
 
-	while (player == false)
-	{
+
 	//ask which symbol the player wants to play as
 	printf("Would you like to be noughts or crosses (Please enter either 'x' or 'o'): \n");
-	scanf("%c", symbol);
+	scanf("%2c", &symbol);
 
+	while (player = false)
+	{
 
-		if (strcmp(&symbol, 'x') != 0 && strcmp(&symbol, 'o') != 0)
+		if (strcmp(&symbol, "x") == 0 || strcmp(&symbol, "o") == 0)
 		{
-			
-			printf("\nEnter either x or o	.");
+			player = true;
 		}
 		else
 		{
-			symbol = 'x';
-			//player = true;
+			printf("\nEnter either x or o	.");
 		}
 
 	}
 
-	while (win == false)
+	while (win = false)
 	{
 		//print game board to console
 		printGrid(squares);
 
 		//ask the player which square they wish to own?
-		//playerTurn(symbol);
-		//checkForWin(squares);
+		playerTurn(symbol);
+		checkForWin(squares);
 	}
 }
 
