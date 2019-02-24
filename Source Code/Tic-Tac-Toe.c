@@ -9,7 +9,7 @@
 //global variables
 int squares[3][3] = { {0,0,0}, {0,0,0},{0,0,0} }; //create an array of nullable booleans that will be used to store noughts and crosses: 0=O, 1=X, NULL = ?
 bool player = false; //create the player boolean
-char symbol;//symbol to use for the first player
+char symbol = 'r';//symbol to use for the first player
 bool win = false; //win condition for the game, used to terminate the game loop
 int turns = 0;
 
@@ -60,59 +60,62 @@ void playerTurn(char symbol)
 	int yAxis = 3;
 	bool occupied = true;
 
-	while (occupied = true)
+	while (occupied == true)
 	{
 		//find the y axis of the box the player wants to claim
-		printf("Player %c, Which row would you like to claim? (eg 'Top / Bottom / Middle')\n", symbol);
-		scanf("%6c", &moveSelection);
+		
 
 		//make sure the user input is valid
 
-		while (yAxis = 3)
+		while (yAxis == 3)
 		{
+			printf("Player %c, Which row would you like to claim? (eg 'Top / Bottom / Middle')\n", symbol);
+			scanf("%c", &moveSelection);
 
-			if (moveSelection == "Top")
+			if (strcmp(moveSelection, "Top") == 0)
 			{
-				yAxis = 0;
-
-			}
-			else if (moveSelection == "Middle")
-			{
-				yAxis = 1;
+				yAxis -=3;
 
 			}
-			else if (moveSelection == "Bottom")
+			else if (strcmp(moveSelection, "Middle") ==0)
 			{
-				yAxis = 2;
+				yAxis -=2;
+
+			}
+			else if (strcmp(moveSelection, "Bottom") ==0)
+			{
+				yAxis -=1;
 
 			}
 			else
 			{
 				printf("please enter a valid square (Remember Capital Letters!)\n");
-				scanf("%6c", &moveSelection);
+				//scanf("%6c", &moveSelection);
 			}
 
 		}
 
 		//find the x axis of the box the player wants to claim
-		printf("Player %c, Which row would you like to claim? (eg 'Left / Right / Middle')\n", symbol);
-		scanf("%6c", &moveSelection);
+		
 
 		//make sure the user input is valid
 
-		while (xAxis = 3)
+		while (xAxis == 3)
 		{
-			if (moveSelection == "Left")
+			printf("Player %c, Which row would you like to claim? (eg 'Left / Right / Middle')\n", symbol);
+			scanf("%c", &moveSelection);
+
+			if (strcmp(moveSelection, "Left") == 0)
 			{
 				xAxis = 0;
 
 			}
-			else if (moveSelection == "Middle")
+			else if (strcmp(moveSelection, "Middle") == 0)
 			{
 				xAxis = 1;
 
 			}
-			else if (moveSelection == "Right")
+			else if (strcmp(moveSelection, "Right") == 0)
 			{
 				xAxis = 2;
 
@@ -120,7 +123,7 @@ void playerTurn(char symbol)
 			else
 			{
 				printf("please enter a valid square (Remember Capital Letters!)\n");
-				scanf("%6c", &moveSelection);
+				//scanf("%6c", &moveSelection);
 			}
 		}
 
@@ -142,10 +145,10 @@ void playerTurn(char symbol)
 			else
 			{
 				squares[xAxis][yAxis] = 2;
-				&symbol == "x"; //change who's turn it is
-				occupied = false; //set the occupied boolean to false to break the loop
+				//symbol = "x"; //change who's turn it is
+				
 			}
-
+			occupied = false; //set the occupied boolean to false to break the loop
 
 		}
 		//if it is, display an error and ask the player again
@@ -155,15 +158,18 @@ void playerTurn(char symbol)
 
 		}
 	}
+
+	turns++;
 }
 
 void checkForWin(int squares[3][3])
 {
-	if (turns = 9)
+	if (turns == 9)
 	{
 		win = true;
 	}
 }
+
 int main()
 
 {
@@ -173,26 +179,27 @@ int main()
 	// char board[40]; //create the string that will be the game board
 
 
-
+	while (player == false)
+	{
 	//ask which symbol the player wants to play as
 	printf("Would you like to be noughts or crosses (Please enter either 'x' or 'o'): \n");
-	scanf("%2c", &symbol);
+	scanf("%c", &symbol);
 
-	while (player = false)
-	{
 
-		if (strcmp(&symbol, "x") == 0 || strcmp(&symbol, "o") == 0)
+		if (strcmp(&symbol, "x") != 0 && strcmp(&symbol, "o") != 0)
 		{
-			player = true;
+			
+			printf("\nEnter either x or o	.");
 		}
 		else
 		{
-			printf("\nEnter either x or o	.");
+			symbol = 'x';
+			player = true;
 		}
 
 	}
 
-	while (win = false)
+	while (win == false)
 	{
 		//print game board to console
 		printGrid(squares);
