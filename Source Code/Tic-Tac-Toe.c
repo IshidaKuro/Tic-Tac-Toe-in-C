@@ -19,7 +19,7 @@ void printGrid(int squares[3][3])
 
 	for (int i = 0; i < 3; i++)
 	{
-		printf("%d | ", i);
+		printf("%d | ", 2-i);
 
 		for (int j = 0; j < 4; j++)
 		{
@@ -109,12 +109,12 @@ void playerTurn(char symbol)
 
 			if (-1 < moveSelection < 3)
 			{
-				yAxis = moveSelection;
+				yAxis = 2 - moveSelection;
 			}
 			else
 			{
 				printf("please enter a valid square\n");
-				//scanf("%6c", &moveSelection);
+				
 			}
 
 		}
@@ -146,7 +146,7 @@ void playerTurn(char symbol)
 		//if it is, display an error and ask the player again
 		else
 		{
-			printf("This box has already been claimed, please enter another");
+			printf("This box has already been claimed, please enter another\n");
 
 		}
 	}
