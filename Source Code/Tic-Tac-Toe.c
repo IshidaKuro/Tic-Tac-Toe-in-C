@@ -15,15 +15,20 @@ int turns = 0;
 
 void printGrid(int squares[3][3])
 {
+	printf("\n");
+
 	for (int i = 0; i < 3; i++)
 	{
+		printf("%d | ", i);
+
 		for (int j = 0; j < 4; j++)
 		{
+			
 			if (j == 3)
 			{
 				if (i < 2)
 				{
-					printf("\n-----------");
+					printf("\n  | -----------");
 				}
 				printf("\n");
 			}
@@ -51,11 +56,14 @@ void printGrid(int squares[3][3])
 			}
 		}
 	}
+
+	printf("   ------------- \n");
+	printf("     0   1   2 \n");
 }
 
 void playerTurn(char symbol)
 {
-	char moveSelection[7];
+	int moveSelection;
 	int xAxis = 3;
 	int yAxis = 3;
 	bool occupied = true;
@@ -64,32 +72,24 @@ void playerTurn(char symbol)
 	{
 		//find the y axis of the box the player wants to claim
 		
-
+		xAxis = 3;
+		yAxis = 3;
 		//make sure the user input is valid
 
-		while (yAxis == 3)
+		while (xAxis == 3)
 		{
-			printf("Player %c, Which row would you like to claim? (eg 'Top / Bottom / Middle')\n", symbol);
-			scanf("%c", &moveSelection);
+			printf("Player %c, Please enter the x co-ordinate of the square you wish to claim\n", symbol);
+			scanf("%d", &moveSelection); 
 
-			if (strcmp(moveSelection, "Top") == 0)
+
+
+			if (-1 < moveSelection < 3)
 			{
-				yAxis -=3;
-
-			}
-			else if (strcmp(moveSelection, "Middle") ==0)
-			{
-				yAxis -=2;
-
-			}
-			else if (strcmp(moveSelection, "Bottom") ==0)
-			{
-				yAxis -=1;
-
+				xAxis = moveSelection;
 			}
 			else
 			{
-				printf("please enter a valid square (Remember Capital Letters!)\n");
+				printf("please enter a valid square\n");
 				//scanf("%6c", &moveSelection);
 			}
 
@@ -100,31 +100,23 @@ void playerTurn(char symbol)
 
 		//make sure the user input is valid
 
-		while (xAxis == 3)
+		while (yAxis == 3)
 		{
-			printf("Player %c, Which row would you like to claim? (eg 'Left / Right / Middle')\n", symbol);
-			scanf("%c", &moveSelection);
+			printf("Player %c, Please enter the y co-ordinate of the square you wish to claim\n", symbol);
+			scanf("%d", &moveSelection);
 
-			if (strcmp(moveSelection, "Left") == 0)
+
+
+			if (-1 < moveSelection < 3)
 			{
-				xAxis = 0;
-
-			}
-			else if (strcmp(moveSelection, "Middle") == 0)
-			{
-				xAxis = 1;
-
-			}
-			else if (strcmp(moveSelection, "Right") == 0)
-			{
-				xAxis = 2;
-
+				yAxis = moveSelection;
 			}
 			else
 			{
-				printf("please enter a valid square (Remember Capital Letters!)\n");
+				printf("please enter a valid square\n");
 				//scanf("%6c", &moveSelection);
 			}
+
 		}
 
 
@@ -138,13 +130,13 @@ void playerTurn(char symbol)
 
 			if (strcmp(&symbol, "x") == 0)
 			{
-				squares[xAxis][yAxis] = 1; //mark the players symbol in to the box
+				squares[yAxis][xAxis] = 1; //mark the players symbol in to the box
 
 			}
 
 			else
 			{
-				squares[xAxis][yAxis] = 2;
+				squares[yAxis][xAxis] = 2;
 				//symbol = "x"; //change who's turn it is
 				
 			}
