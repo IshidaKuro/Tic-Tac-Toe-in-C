@@ -79,6 +79,19 @@ void printGrid(int squares[3][3])
 	printf("\n ____________________________\n\n");
 }
 
+void undoMove()
+{
+	//go back to the previous turn
+	turns--;
+	//reset the cell modified on this turn
+	squares[xAxis[turns]][yAxis[turns]] = 0;
+	//re draw the grid
+	printGrid(squares);
+	//go back to the previous player's turn
+	playerX = !playerX;
+
+}
+
 void playerTurn()
 {
 	int moveSelection;
@@ -106,10 +119,24 @@ void playerTurn()
 		while (xAxis[turns] == 3)
 		{
 			printf("Player %c, Please enter the x co-ordinate of the square you wish to claim\n", symbol);
+			printf("If you wish to undo the previous move, please enter '5' \n");
 			scanf("%d", &moveSelection);
 
 
-
+			if (moveSelection == 5)
+			{
+				if (turns == 0)
+				{
+					printf("there is no move to undo \n");
+					
+				}
+				else
+				{
+					undoMove();
+					return;
+					
+				}
+			}
 			if (-1 < moveSelection < 3)
 			{
 				xAxis[turns] = moveSelection;
@@ -194,42 +221,42 @@ void checkForWin(int squares[3][3])
 			if ((squares[0][0] * squares[0][1] * squares[0][2]) == 1 || (squares[0][0] * squares[0][1] * squares[0][2]) == 8) //left win
 			{
 				winner = squares[0][0];
-				strcpy(winCondition, "The player has won by completing the left column\0");
+				strcpy(winCondition, "The player has won by completing the left column");
 			}
 			else if ((squares[1][0] * squares[1][1] * squares[1][2]) == 1 || (squares[1][0] * squares[1][1] * squares[1][2]) == 8) //middle (|) win
 			{
 				winner = squares[1][0];
-				strcpy(winCondition, "The player has won by completing the middle column\0");
+				strcpy(winCondition, "The player has won by completing the middle column");
 			}
 			else if ((squares[2][0] * squares[2][1] * squares[2][2]) == 1 || (squares[2][0] * squares[2][1] * squares[2][2]) == 8) //right win
 			{
 				winner = squares[2][0];
-				strcpy(winCondition, "The player has won by completing the right column\0");
+				strcpy(winCondition, "The player has won by completing the right column");
 			}
 			else if ((squares[0][0] * squares[1][1] * squares[2][2]) == 1 || (squares[0][0] * squares[1][1] * squares[2][2]) == 8) // diagonal (\) win
 			{
 				winner = squares[0][0];
-				strcpy(winCondition, "The player has won by completing the top left to bottom right diagonal\0");
+				strcpy(winCondition, "The player has won by completing the top left to bottom right diagonal");
 			}
 			else if ((squares[0][2] * squares[1][1] * squares[2][0]) == 1 || (squares[0][2] * squares[1][1] * squares[2][0]) == 8) //diagonal (/) win
 			{
 				winner = squares[0][2];
-				strcpy(winCondition, "The player has won by completing the bottom left to top right diagonal\0");
+				strcpy(winCondition, "The player has won by completing the bottom left to top right diagonal");
 			}
 			else if ((squares[0][0] * squares[1][0] * squares[2][0]) == 1 || (squares[0][0] * squares[1][0] * squares[2][0]) == 8) //top win
 			{
 				winner = squares[0][0];
-				strcpy(winCondition, "The player has won by completing the top row\0");
+				strcpy(winCondition, "The player has won by completing the top row");
 			}
 			else if ((squares[0][1] * squares[1][1] * squares[2][1]) == 1 || (squares[0][1] * squares[1][1] * squares[2][1]) == 8) //middle(-) win
 			{
 				winner = squares[0][1];
-				strcpy(winCondition, "The player has won by completing the middle row\0");
+				strcpy(winCondition, "The player has won by completing the middle row");
 			}
 			else if ((squares[0][2] * squares[1][2] * squares[2][2]) == 1 || (squares[0][2] * squares[1][2] * squares[2][2]) == 8) //bottom win
 			{
 				winner = squares[0][2];
-				strcpy(winCondition, "The player has won by completing the bottom row\0");
+				strcpy(winCondition, "The player has won by completing the bottom row");
 			}
 		}
 	}
